@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Comunidad Gamer</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>🎮 Comunidad Gamer</h1>
+        <div class="user-info">
+            <span sec:authorize="!isAuthenticated()">
+                <a th:href="@{/login}">Iniciar sesión</a>
+            </span>
+            <span sec:authorize="isAuthenticated()">
+                Bienvenido, <span sec:authentication="name"></span> |
+                <form th:action="@{/logout}" method="post" style="display:inline;">
+                    <button type="submit" class="logout-btn">Cerrar sesión</button>
+                </form>
+                
+            </span>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+
+    <h2>🔥 Próximos eventos</h2>
+    <div class="event-grid">
+        <div th:each="evento : ${eventos}" class="event-card">
+            <h3 th:text="${evento.nombre}">Nombre Evento</h3>
+            <p><strong>Fecha:</strong> <span th:text="${evento.fecha}">fecha</span></p>
+            <p><strong>Ubicación:</strong> <span th:text="${evento.ubicacion}">ubicación</span></p>
+            <p><strong>Juegos:</strong>
+                <span th:each="juego : ${evento.juegosRelacionados}" th:text="${juego}" class="juego"></span>
+            </p>
+        </div>
+    </div>
+
+    <h2>🎯 Marcas patrocinadoras</h2>
+    <div class="banner-grid">
+        <img src="https://1000logos.net/wp-content/uploads/2020/05/Logitech-Symbol.png" alt="Logitech" />
+        <img src="https://1000logos.net/wp-content/uploads/2022/06/Alienware-logo.png" alt="Alienware" />
+        <img src="https://1000logos.net/wp-content/uploads/2021/04/HyperX-logo.png" alt="HyperX" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Lenovo_Global_Corporate_Logo.png/2560px-Lenovo_Global_Corporate_Logo.png" alt="Lenovo" />
+        <img src="https://www.cdnlogo.com/logos/m/6/microsoft.svg" alt="Microsoft" />
+    </div>
+
+</main>
+
+<footer>
+    <p>&copy; 2025 Comunidad Gamer | Desarrollado con Spring Boot + Thymeleaf | Mauricio Mora & Francisco Salinas </p>
+</footer>
+
+</body>
+</html>
