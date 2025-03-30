@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Buscar Eventos - Comunidad Gamer</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>🔎 Buscar Eventos</h1>
+        <div class="user-info">
+            <a th:href="@{/}">← Volver al inicio</a>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+    <form method="get" th:action="@{/buscar}" class="search-form">
+        <input type="text" name="nombre" placeholder="Nombre del evento" />
+        <input type="text" name="juego" placeholder="Juego relacionado" />
+        <input type="text" name="ubicacion" placeholder="Ubicación" />
+        <input type="date" name="fecha" />
+        <input type="text" name="categoria" placeholder="Categoría" />
+        <button type="submit">Buscar</button>
+    </form>
+
+    <h2>🎮 Resultados</h2>
+    <div class="event-grid">
+        <div th:each="evento : ${eventos}" class="event-card">
+            <h3 th:text="${evento.nombre}">Nombre Evento</h3>
+            <p><strong>Fecha:</strong> <span th:text="${evento.fecha}">fecha</span></p>
+            <p><strong>Ubicación:</strong> <span th:text="${evento.ubicacion}">ubicación</span></p>
+            <p><strong>Juegos:</strong>
+                <span th:each="juego : ${evento.juegosRelacionados}" th:text="${juego}" class="juego"></span>
+            </p>
+            <a th:href="@{'/evento/' + ${evento.id}}" class="ver-mas">Ver más</a>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

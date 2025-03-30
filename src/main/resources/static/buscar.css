@@ -1,0 +1,40 @@
+.search-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.search-form input,
+.search-form button {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+.search-form button {
+    background-color: #00bfff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.search-form button:hover {
+    background-color: #0099cc;
+}
+
+
+.ver-mas {
+    display: inline-block;
+    margin-top: 10px;
+    background-color: #00bfff;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.ver-mas:hover {
+    background-color: #0099cc;
+}

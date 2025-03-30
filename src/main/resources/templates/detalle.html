@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalle del Evento</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1 th:text="${evento.nombre}">Nombre del Evento</h1>
+        <div class="user-info">
+            <a th:href="@{/}">← Volver al inicio</a>
+        </div>
+    </div>
+</header>
+
+<main class="detalle-container">
+    <h1 th:text="${evento.nombre}">Nombre del Evento</h1>
+
+    <p><strong>📅 Fecha:</strong> <span th:text="${evento.fecha}"></span></p>
+    <p><strong>📍 Ubicación:</strong> <span th:text="${evento.ubicacion}"></span></p>
+    <p><strong>🕒 Hora:</strong> <span th:text="${evento.hora}"></span></p>
+    <p><strong>📄 Descripción:</strong> <span th:text="${evento.descripcion}"></span></p>
+    <p><strong>📌 Dirección:</strong> <span th:text="${evento.direccion}"></span></p>
+    <p><strong>👥 Organizadores:</strong> <span th:text="${evento.organizadores}"></span></p>
+
+    <p><strong>🎮 Juegos Relacionados:</strong></p>
+    <ul>
+        <li th:each="j : ${evento.juegosRelacionados}" th:text="${j}"></li>
+    </ul>
+
+    <p><strong>🏆 Expositores principales:</strong></p>
+    <ul>
+        <li th:each="e : ${evento.expositores}" th:text="${e}"></li>
+    </ul>
+
+    <a th:href="@{/}" class="back-button">← Volver al inicio</a>
+</main>
+
+</body>
+</html>

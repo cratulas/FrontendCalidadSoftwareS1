@@ -27,6 +27,10 @@
 
 <main class="container">
 
+    <div class="actions-bar">
+        <a th:href="@{/buscar}" class="btn-buscar">🔎 Buscar eventos</a>
+    </div>    
+
     <h2>🔥 Próximos eventos</h2>
     <div class="event-grid">
         <div th:each="evento : ${eventos}" class="event-card">
@@ -36,6 +40,7 @@
             <p><strong>Juegos:</strong>
                 <span th:each="juego : ${evento.juegosRelacionados}" th:text="${juego}" class="juego"></span>
             </p>
+            <a th:href="@{'/evento/' + ${evento.id}}" class="ver-mas">Ver más</a>
         </div>
     </div>
 

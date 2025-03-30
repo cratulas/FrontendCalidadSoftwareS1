@@ -43,14 +43,15 @@ public class HomeController {
     public String greeting(@RequestParam(name = "name", required = false, defaultValue = "Juan González") String name,
                            Model model) {
         String url = "http://localhost:8080/greetings";
-
+    
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", tokenStore.getToken());
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
+    
+        UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
+                .uri(java.net.URI.create(url))
                 .queryParam("name", name);
-
+    
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.exchange(
                 builder.toUriString(),
@@ -58,8 +59,9 @@ public class HomeController {
                 entity,
                 String.class
         );
-
+    
         model.addAttribute("name", response.getBody());
         return "Greetings";
     }
+    
 }
