@@ -21,9 +21,11 @@ import org.springframework.web.client.RestTemplate;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final TokenStore tokenStore;
+    private final RestTemplate restTemplate;
 
-    public CustomAuthenticationProvider(TokenStore tokenStore) {
+    public CustomAuthenticationProvider(TokenStore tokenStore, RestTemplate restTemplate) {
         this.tokenStore = tokenStore;
+        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -35,7 +37,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         requestBody.add("user", name);
         requestBody.add("encryptedPass", password);
 
-        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(
                 "http://localhost:8080/login",
                 requestBody,

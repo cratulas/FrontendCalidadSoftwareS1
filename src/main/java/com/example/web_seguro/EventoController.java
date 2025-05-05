@@ -10,9 +10,11 @@ import org.springframework.web.client.RestTemplate;
 public class EventoController {
 
     private final TokenStore tokenStore;
+    private final RestTemplate restTemplate;
 
-    public EventoController(TokenStore tokenStore) {
+    public EventoController(TokenStore tokenStore, RestTemplate restTemplate) {
         this.tokenStore = tokenStore;
+        this.restTemplate = restTemplate;
     }
 
     @GetMapping("/evento/{id}")
@@ -23,7 +25,6 @@ public class EventoController {
         headers.set("Authorization", tokenStore.getToken());
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Evento> response = restTemplate.exchange(url, HttpMethod.GET, entity, Evento.class);
 
         model.addAttribute("evento", response.getBody());

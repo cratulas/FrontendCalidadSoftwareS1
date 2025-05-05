@@ -12,9 +12,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class BuscarController {
 
     private final TokenStore tokenStore;
+    private final RestTemplate restTemplate;
 
-    public BuscarController(TokenStore tokenStore) {
+    public BuscarController(TokenStore tokenStore, RestTemplate restTemplate) {
         this.tokenStore = tokenStore;
+        this.restTemplate = restTemplate;
     }
 
     @GetMapping("/buscar")
@@ -36,13 +38,11 @@ public class BuscarController {
         if (ubicacion != null && !ubicacion.isBlank()) builder.queryParam("ubicacion", ubicacion);
         if (fecha != null && !fecha.isBlank()) builder.queryParam("fecha", fecha);
         if (categoria != null && !categoria.isBlank()) builder.queryParam("categoria", categoria);
-        
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", tokenStore.getToken());
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Evento[]> response = restTemplate.exchange(
                 builder.toUriString(),
                 HttpMethod.GET,
